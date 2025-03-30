@@ -1,112 +1,52 @@
 [
-    {
-      "id": 1,
-      "question": "What does HTML stand for?",
-      "options": [
-        "Hyper Text Markup Language",
-        "High Tech Modern Language",
-        "Hyper Transfer Markup Language",
-        "Hyperlink Text Management Language"
-      ],
-      "correctAnswerIndex": 0
-    },
-    {
-      "id": 2,
-      "question": "Which of the following is NOT a JavaScript framework?",
-      "options": [
-        "React",
-        "Angular",
-        "Vue",
-        "Ruby on Rails"
-      ],
-      "correctAnswerIndex": 3
-    },
-    {
-      "id": 3,
-      "question": "What is the purpose of CSS?",
-      "options": [
-        "To create dynamic content",
-        "To style HTML elements",
-        "To manage database operations",
-        "To handle server requests"
-      ],
-      "correctAnswerIndex": 1
-    },
-    {
-      "id": 4,
-      "question": "Which protocol is used for secure web pages?",
-      "options": [
-        "HTTP",
-        "FTP",
-        "HTTPS",
-        "SMTP"
-      ],
-      "correctAnswerIndex": 2
-    },
-    {
-      "id": 5,
-      "question": "What does API stand for?",
-      "options": [
-        "Application Programming Interface",
-        "Advanced Programming Implementation",
-        "Automated Protocol Integration",
-        "Application Protocol Interface"
-      ],
-      "correctAnswerIndex": 0
-    },
-    {
-      "id": 6,
-      "question": "Which of these is a version control system?",
-      "options": [
-        "Docker",
-        "Kubernetes",
-        "Git",
-        "Jenkins"
-      ],
-      "correctAnswerIndex": 2
-    },
-    {
-      "id": 7,
-      "question": "What is the main purpose of a database?",
-      "options": [
-        "To style web pages",
-        "To store and organize data",
-        "To create user interfaces",
-        "To connect to the internet"
-      ],
-      "correctAnswerIndex": 1
-    },
-    {
-      "id": 8,
-      "question": "Which of the following is a backend programming language?",
-      "options": [
-        "HTML",
-        "CSS",
-        "Node.js",
-        "Markdown"
-      ],
-      "correctAnswerIndex": 2
-    },
-    {
-      "id": 9,
-      "question": "What is a responsive web design?",
-      "options": [
-        "Websites that load quickly",
-        "Websites that adapt to different screen sizes",
-        "Websites with animated elements",
-        "Websites that require user responses"
-      ],
-      "correctAnswerIndex": 1
-    },
-    {
-      "id": 10,
-      "question": "Which component is the 'brain' of a computer?",
-      "options": [
-        "RAM",
-        "Hard Drive",
-        "CPU",
-        "GPU"
-      ],
-      "correctAnswerIndex": 2
-    }
-  ]
+  {
+    "_id": "1",
+    "question": "Which planet is known as the Red Planet?",
+    "answers": [
+      { "text": "Venus", "isCorrect": false },
+      { "text": "Jupiter", "isCorrect": false },
+      { "text": "Mars", "isCorrect": true },
+      { "text": "Saturn", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": "2",
+    "question": "Who wrote the play 'Romeo and Juliet'?",
+    "answers": [
+      { "text": "William Shakespeare", "isCorrect": true },
+      { "text": "Charles Dickens", "isCorrect": false },
+      { "text": "Jane Austen", "isCorrect": false },
+      { "text": "Mark Twain", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": "3",
+    "question": "What is the chemical symbol for gold?",
+    "answers": [
+      { "text": "Gd", "isCorrect": false },
+      { "text": "Go", "isCorrect": false },
+      { "text": "Au", "isCorrect": true },
+      { "text": "Ag", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": "4",
+    "question": "Which animal is known as the 'King of the Jungle'?",
+    "answers": [
+      { "text": "Tiger", "isCorrect": false },
+      { "text": "Lion", "isCorrect": true },
+      { "text": "Elephant", "isCorrect": false },
+      { "text": "Gorilla", "isCorrect": false }
+    ]
+  },
+  {
+    "_id": "5",
+    "question": "In which year did the Titanic sink?",
+    "answers": [
+      { "text": "1905", "isCorrect": false },
+      { "text": "1912", "isCorrect": true },
+      { "text": "1920", "isCorrect": false },
+      { "text": "1931", "isCorrect": false }
+    ]
+  }
+]

@@ -1,6 +1,6 @@
-import { useState, } from 'react';
-import type { Question } from '../models/Question.js';
-import { getQuestions } from '../services/questionApi.js';
+import { useState } from 'react';
+import type { Question } from '../models/Question';
+import { getQuestions } from '../services/questionApi';
 
 const Quiz = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -8,18 +8,20 @@ const Quiz = () => {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const getRandomQuestions = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const questions = await getQuestions();
-
-      if (!questions) {
-        throw new Error('something went wrong!');
-      }
-
-      setQuestions(questions);
+      const fetchedQuestions = await getQuestions();
+      setQuestions(fetchedQuestions);
+      setLoading(false);
     } catch (err) {
       console.error(err);
+      setError('Something went wrong. Please try again.');
+      setLoading(false);
     }
   };
 
@@ -37,38 +39,38 @@ const Quiz = () => {
   };
 
   const handleStartQuiz = async () => {
-    await getRandomQuestions();
     setQuizStarted(true);
     setQuizCompleted(false);
     setScore(0);
     setCurrentQuestionIndex(0);
+    await getRandomQuestions();
   };
 
+  // Display start button if quiz hasn't started
   if (!quizStarted) {
     return (
       <div className="p-4 text-center">
-        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz}>
+        <button className="btn btn-primary" onClick={handleStartQuiz}>
           Start Quiz
         </button>
       </div>
     );
   }
 
-  if (quizCompleted) {
+  // Display error message if there's an error
+  if (error) {
     return (
-      <div className="card p-4 text-center">
-        <h2>Quiz Completed</h2>
-        <div className="alert alert-success">
-          Your score: {score}/{questions.length}
-        </div>
-        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz}>
-          Take New Quiz
+      <div className="p-4 text-center">
+        <div className="alert alert-danger">{error}</div>
+        <button className="btn btn-primary" onClick={handleStartQuiz}>
+          Try Again
         </button>
       </div>
     );
   }
 
-  if (questions.length === 0) {
+  // Display loading spinner while fetching questions
+  if (loading || questions.length === 0) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="spinner-border text-primary" role="status">
@@ -78,18 +80,41 @@ const Quiz = () => {
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
+  // Display quiz completion screen
+  if (quizCompleted) {
+    return (
+      <div className="card p-4 text-center">
+        <h2>Quiz Completed</h2>
+        <div className="alert alert-success">
+          Your score: {score}/{questions.length}
+        </div>
+        <button className="btn btn-primary" onClick={handleStartQuiz}>
+          Take New Quiz
+        </button>
+      </div>
+    );
+  }
 
+  // Display current question and answers
+  const currentQuestion = questions[currentQuestionIndex];
   return (
-    <div className='card p-4'>
+    <div className="card p-4">
       <h2>{currentQuestion.question}</h2>
       <div className="mt-3">
-      {currentQuestion.answers.map((answer, index) => (
-        <div key={index} className="d-flex align-items-center mb-2">
-          <button className="btn btn-primary" onClick={() => handleAnswerClick(answer.isCorrect)}>{index + 1}</button>
-          <div className="alert alert-secondary mb-0 ms-2 flex-grow-1">{answer.text}</div>
-        </div>
-      ))}
+        {currentQuestion.answers.map((answer, index) => (
+          <div key={index} className="alert alert-secondary mb-2">
+            <button 
+              className="btn btn-primary me-2" 
+              onClick={() => handleAnswerClick(answer.isCorrect)}
+            >
+              {index + 1}
+            </button>
+            {answer.text}
+          </div>
+        ))}
+      </div>
+      <div className="progress mt-3">
+        Question {currentQuestionIndex + 1} of {questions.length}
       </div>
     </div>
   );

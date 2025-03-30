@@ -13,19 +13,13 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
+// Import commands
 import './commands'
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
+// Import mount
 import { mount } from 'cypress/react18'
-import * as Cypress from 'cypress'
 
-// Augment the Cypress namespace to include type definitions for
-// your custom command.
-// Alternatively, can be defined in cypress/support/component.d.ts
-// with a <reference path="./component" /> at the top of your spec.
+// TS type definitions
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -34,8 +28,14 @@ declare global {
   }
 }
 
-// Use the global Cypress object directly
-Cypress.Commands.add('mount', mount);
-// This is a workaround for TypeScript to recognize the module      
-// Export empty object to make TypeScript treat this as a module
+// Use Function approach to avoid the TypeScript error
+function registerCommand() {
+  // @ts-ignore
+  return Cypress.Commands.add('mount', mount);
+}
+
+// Call the function to register the command
+registerCommand();
+
+// Make this file a module
 export {}
