@@ -25,6 +25,7 @@ describe('Knowledge Quiz E2E Tests', () => {
 
   beforeEach(() => {
     // Mock the API response with our mockQuestions
+    // @ts-ignore
     cy.intercept('GET', '/api/questions/random', {
       statusCode: 200,
       body: mockQuestions
@@ -82,44 +83,44 @@ describe('Knowledge Quiz E2E Tests', () => {
 
     
   it('should give full score when all answers are correct', () => {
-    cy.get('button').contains('Start Quiz').click()
-    cy.wait('@getQuestions')
+    cy.get('button').contains('Start Quiz').click();
+    cy.wait('@getQuestions');
     
     // Click the correct answer for the first question (option with "Mars")
-    cy.get('.alert-secondary').contains('Mars').parent().find('button').click()
+    cy.get('.btn-primary').contains('Mars').click();
     
     // Click the correct answer for the second question (option with "William Shakespeare")
-    cy.get('.alert-secondary').contains('William Shakespeare').parent().find('button').click()
+    cy.get('.btn-primary').contains('William Shakespeare').click();
     
     // Verify final score is 2/2
-    cy.get('.alert-success').should('contain', '2/2')
-  })
+    cy.get('.alert-success').should('contain', '2/2');
+});
 
-  it('should give zero score when all answers are incorrect', () => {
-    cy.get('button').contains('Start Quiz').click()
-    cy.wait('@getQuestions')
+it('should give zero score when all answers are incorrect', () => {
+    cy.get('button').contains('Start Quiz').click();
+    cy.wait('@getQuestions');
     
     // Click an incorrect answer for the first question
-    cy.get('.alert-secondary').contains('Venus').parent().find('button').click()
+    cy.get('.btn-primary').contains('Venus').click();
     
     // Click an incorrect answer for the second question
-    cy.get('.alert-secondary').contains('Charles Dickens').parent().find('button').click()
+    cy.get('.btn-primary').contains('Charles Dickens').click();
     
     // Verify final score is 0/2
-    cy.get('.alert-success').should('contain', '0/2')
-  })
+    cy.get('.alert-success').should('contain', '0/2');
+});
 
-  it('should give partial score for partially correct answers', () => {
-    cy.get('button').contains('Start Quiz').click()
-    cy.wait('@getQuestions')
+it('should give partial score for partially correct answers', () => {
+    cy.get('button').contains('Start Quiz').click();
+    cy.wait('@getQuestions');
     
     // Click the correct answer for the first question
-    cy.get('.alert-secondary').contains('Mars').parent().find('button').click()
+    cy.get('.btn-primary').contains('Mars').click();
     
     // Click an incorrect answer for the second question
-    cy.get('.alert-secondary').contains('Jane Austen').parent().find('button').click()
+    cy.get('.btn-primary').contains('Jane Austen').click();
     
     // Verify final score is 1/2
-    cy.get('.alert-success').should('contain', '1/2')
-  })
-})
+    cy.get('.alert-success').should('contain', '1/2');
+});
+});
